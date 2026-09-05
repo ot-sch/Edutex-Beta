@@ -1,0 +1,64 @@
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage{etoolbox}
+\usepackage{fvextra}
+
+\definecolor{EdutexBlue}{HTML}{15395B}
+\definecolor{EdutexTeal}{HTML}{008F8C}
+\definecolor{EdutexInk}{HTML}{1A2733}
+\definecolor{EdutexMuted}{HTML}{5D6B78}
+\definecolor{EdutexRule}{HTML}{CFD9E2}
+
+\setmainfont{DejaVu Sans}
+\setsansfont{DejaVu Sans}
+\setmonofont[Scale=0.86]{DejaVu Sans Mono}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt plus 1.5pt minus 1pt}
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.18}
+\setlist{nosep,leftmargin=1.6em,topsep=3pt}
+\AtBeginEnvironment{longtable}{\footnotesize\setlength{\tabcolsep}{3pt}}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\bfseries\color{EdutexBlue}}
+  {\filleft\Large\color{EdutexTeal}\chaptertitlename\ \thechapter}
+  {0.5ex}
+  {\titlerule[1.1pt]\vspace{1ex}\huge\RaggedRight}
+\titleformat{\section}
+  {\normalfont\Large\sffamily\bfseries\color{EdutexBlue}}
+  {\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\normalfont\large\sffamily\bfseries\color{EdutexTeal}}
+  {\thesubsection}{0.7em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{EdutexMuted} EDUTEX · PRODUCTION STANDARD}
+\fancyhead[R]{\footnotesize\color{EdutexMuted} 1.0.0-rc.5}
+\fancyfoot[L]{\footnotesize\color{EdutexMuted} Controlled when read from the approved release}
+\fancyfoot[R]{\footnotesize\color{EdutexBlue}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{EdutexRule}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+
+\AtBeginDocument{%
+  \color{EdutexInk}%
+  \hypersetup{pdfborder={0 0 0},bookmarksnumbered=true}%
+  \ifcsname Highlighting\endcsname%
+    \RecustomVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},breaklines=true,breakanywhere=true,fontsize=\scriptsize}%
+  \fi%
+  \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\scriptsize}%
+}

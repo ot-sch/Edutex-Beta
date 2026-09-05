@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1160" viewBox="0 0 1400 1160" role="img" aria-labelledby="title desc">
+  <title id="title">Edutex production request and service architecture</title>
+  <desc id="desc">A school user reaches the private Fargate application through Cloudflare and an outbound tunnel. The application uses Cognito, DynamoDB, RDS Proxy and Aurora, and S3 with KMS.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#008F8C"/>
+    </marker>
+    <style>
+      .box { fill:#F3F7FA; stroke:#15395B; stroke-width:3; rx:18; }
+      .edge { fill:#E5F5F3; }
+      .label { font:600 27px 'DejaVu Sans', sans-serif; fill:#1A2733; text-anchor:middle; }
+      .sub { font:400 21px 'DejaVu Sans', sans-serif; fill:#5D6B78; text-anchor:middle; }
+      .flow { stroke:#008F8C; stroke-width:5; fill:none; marker-end:url(#arrow); }
+      .flowlabel { font:500 19px 'DejaVu Sans', sans-serif; fill:#5D6B78; text-anchor:middle; }
+    </style>
+  </defs>
+  <rect width="1400" height="1160" fill="white"/>
+
+  <rect class="box" x="455" y="35" width="490" height="105"/>
+  <text class="label" x="700" y="78">School user</text><text class="sub" x="700" y="112">managed browser</text>
+
+  <path class="flow" d="M700 140 L700 205"/><text class="flowlabel" x="760" y="180">HTTPS</text>
+  <rect class="box edge" x="390" y="210" width="620" height="125"/>
+  <text class="label" x="700" y="260">Cloudflare edge</text><text class="sub" x="700" y="300">TLS · WAF · OWASP rules · rate/access policy</text>
+
+  <path class="flow" d="M700 335 L700 400"/><text class="flowlabel" x="790" y="375">proxied request</text>
+  <rect class="box" x="430" y="405" width="540" height="110"/>
+  <text class="label" x="700" y="450">Outbound named Tunnel</text><text class="sub" x="700" y="485">no public AWS origin</text>
+
+  <path class="flow" d="M700 515 L700 580"/><text class="flowlabel" x="785" y="555">task loopback</text>
+  <rect class="box edge" x="390" y="585" width="620" height="125"/>
+  <text class="label" x="700" y="635">Private Fargate task</text><text class="sub" x="700" y="675">Fastify BFF · auth client · protected portal</text>
+
+  <path class="flow" d="M570 710 L285 805"/><text class="flowlabel" x="390" y="760">OIDC / SDK</text>
+  <path class="flow" d="M650 710 L590 805"/><text class="flowlabel" x="590" y="770">opaque state</text>
+  <path class="flow" d="M750 710 L810 805"/><text class="flowlabel" x="805" y="770">SQL</text>
+  <path class="flow" d="M830 710 L1115 805"/><text class="flowlabel" x="1015" y="760">workload IAM</text>
+
+  <rect class="box" x="45" y="810" width="430" height="125"/>
+  <text class="label" x="260" y="860">Cognito Plus</text><text class="sub" x="260" y="900">TOTP · passkey · federation</text>
+  <rect class="box" x="495" y="810" width="360" height="125"/>
+  <text class="label" x="675" y="860">DynamoDB</text><text class="sub" x="675" y="900">sessions + auth transactions</text>
+  <rect class="box" x="875" y="810" width="300" height="125"/>
+  <text class="label" x="1025" y="860">RDS Proxy</text><text class="sub" x="1025" y="900">IAM + TLS</text>
+  <rect class="box" x="1195" y="810" width="180" height="125"/>
+  <text class="label" x="1285" y="852">S3 +</text><text class="label" x="1285" y="886">KMS</text><text class="sub" x="1285" y="918">private</text>
+
+  <path class="flow" d="M1025 935 L1025 1000"/><text class="flowlabel" x="1110" y="975">private 5432</text>
+  <rect class="box edge" x="785" y="1005" width="480" height="120"/>
+  <text class="label" x="1025" y="1055">Aurora PostgreSQL 16.6</text><text class="sub" x="1025" y="1095">RLS · PK/FK · audit · encryption</text>
+</svg>

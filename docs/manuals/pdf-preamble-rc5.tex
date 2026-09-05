@@ -1,0 +1,74 @@
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage{etoolbox}
+\usepackage{fvextra}
+\usepackage{needspace}
+
+\definecolor{EdutexBlue}{HTML}{15395B}
+\definecolor{EdutexTeal}{HTML}{008F8C}
+\definecolor{EdutexInk}{HTML}{1A2733}
+\definecolor{EdutexMuted}{HTML}{5D6B78}
+\definecolor{EdutexRule}{HTML}{CFD9E2}
+\definecolor{EdutexCode}{HTML}{F3F7FA}
+
+\setmainfont{DejaVu Sans}
+\setsansfont{DejaVu Sans}
+\setmonofont[Scale=0.82]{DejaVu Sans Mono}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.2pt plus 1.4pt minus 1pt}
+\setlength{\emergencystretch}{4em}
+\renewcommand{\arraystretch}{1.17}
+\setlist{nosep,leftmargin=1.55em,topsep=3pt}
+\AtBeginEnvironment{longtable}{\footnotesize\setlength{\tabcolsep}{3pt}}
+\AtBeginEnvironment{Shaded}{\footnotesize}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\titleformat{\part}[display]
+  {\normalfont\sffamily\bfseries\color{EdutexBlue}\centering}
+  {\Large\color{EdutexTeal}\partname\ \thepart}
+  {1ex}
+  {\Huge}
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\bfseries\color{EdutexBlue}}
+  {\filleft\Large\color{EdutexTeal}\chaptertitlename\ \thechapter}
+  {0.5ex}
+  {\titlerule[1.1pt]\vspace{1ex}\huge\RaggedRight}
+\titleformat{\section}
+  {\normalfont\Large\sffamily\bfseries\color{EdutexBlue}\RaggedRight}
+  {\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\normalfont\large\sffamily\bfseries\color{EdutexTeal}\RaggedRight}
+  {\thesubsection}{0.7em}{}
+\titlespacing*{\chapter}{0pt}{-8pt}{22pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{EdutexMuted} EDUTEX · CONTROLLED PROJECT DOCUMENT}
+\fancyhead[R]{\footnotesize\color{EdutexMuted} 1.0.0-rc.5}
+\fancyfoot[L]{\footnotesize\color{EdutexMuted} Controlled when read from the approved release}
+\fancyfoot[R]{\footnotesize\color{EdutexBlue}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{EdutexRule}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+
+\AtBeginDocument{%
+  \color{EdutexInk}%
+  \hypersetup{pdfborder={0 0 0},bookmarksnumbered=true}%
+  \ifcsname Highlighting\endcsname%
+    \RecustomVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},breaklines=true,breakanywhere=true,fontsize=\scriptsize}%
+  \fi%
+  \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\scriptsize}%
+}

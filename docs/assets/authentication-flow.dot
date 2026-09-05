@@ -1,0 +1,15 @@
+digraph EdutexAuthentication {
+  graph [rankdir=TB, bgcolor="white", pad=0.18, nodesep=0.25, ranksep=0.34, dpi=180];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10.5, color="#15395B", fontcolor="#1A2733", fillcolor="#F3F7FA", margin="0.15,0.09"];
+  edge [color="#008F8C", penwidth=1.6, arrowsize=0.65, fontname="DejaVu Sans", fontsize=8.5, fontcolor="#5D6B78"];
+
+  start [label="1 · Browser starts an enabled method"];
+  tx [label="2 · BFF stores one-time PKCE, state, nonce\nand browser-binding hashes", fillcolor="#E5F5F3"];
+  login [label="3 · Cognito / school IdP verifies\npassword + TOTP, passkey or SSO"];
+  code [label="4 · Browser returns one-time code + state"];
+  verify [label="5 · BFF exchanges code and verifies\nsignature, issuer, audience, time and nonce", fillcolor="#E5F5F3"];
+  roles [label="6 · PostgreSQL resolves tenant and\nreconciles current provider role claims"];
+  session [label="7 · BFF issues an opaque, device-bound\nserver-side session; Cognito tokens discarded"];
+
+  start -> tx -> login -> code -> verify -> roles -> session;
+}

@@ -1,0 +1,24 @@
+digraph EdutexProduction {
+  graph [rankdir=TB, bgcolor="white", pad=0.18, nodesep=0.28, ranksep=0.42, dpi=180];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, color="#15395B", fontcolor="#1A2733", fillcolor="#F3F7FA", margin="0.16,0.10"];
+  edge [color="#008F8C", penwidth=1.7, arrowsize=0.7, fontname="DejaVu Sans", fontsize=9, fontcolor="#5D6B78"];
+
+  user [label="School user\nmanaged browser"];
+  edge_zone [label="Cloudflare edge\nTLS · WAF · rate/access policy", fillcolor="#E5F5F3"];
+  tunnel [label="Outbound named Tunnel\nno public AWS origin"];
+  app [label="Private Fargate task\nFastify BFF + web clients"];
+  identity [label="Cognito Plus\nTOTP · passkey · federation"];
+  sessions [label="DynamoDB\nsessions + auth transactions"];
+  proxy [label="RDS Proxy\nIAM + verify-full TLS"];
+  database [label="Aurora PostgreSQL 16.6\nRLS · PK/FK · audit"];
+  objects [label="S3 + KMS\nprivate files + envelope keys"];
+
+  user -> edge_zone [label="HTTPS"];
+  edge_zone -> tunnel [label="proxied request"];
+  tunnel -> app [label="task loopback"];
+  app -> identity [label="OIDC / AWS SDK"];
+  app -> sessions [label="opaque state"];
+  app -> proxy [label="parameterised SQL"];
+  proxy -> database [label="private 5432"];
+  app -> objects [label="workload IAM"];
+}
