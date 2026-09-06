@@ -1,0 +1,61 @@
+{
+  "name": "edutex-production",
+  "version": "1.0.0-rc.6",
+  "private": true,
+  "description": "Production Edutex platform: AWS, PostgreSQL, Cloudflare and isolated web clients.",
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  },
+  "workspaces": [
+    "packages/contracts",
+    "packages/database",
+    "apps/api",
+    "apps/auth-web",
+    "apps/portal-web",
+    "apps/technician-web",
+    "infra/aws",
+    "scripts"
+  ],
+  "scripts": {
+    "build": "node scripts/clean-build-output.ts && npm run build -w @edutex/contracts && npm run build -w @edutex/database && npm run build -w @edutex/auth-web && npm run build -w @edutex/portal-web && npm run build -w @edutex/technician-web && npm run build -w @edutex/api && tsc -p scripts/tsconfig.build.json && npm run build -w @edutex/infra-aws",
+    "typecheck": "npm run build -w @edutex/contracts && npm run build -w @edutex/database && npm run typecheck --workspaces --if-present && tsc -p scripts/tsconfig.json --noEmit",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "node --max-old-space-size=6144 node_modules/eslint/bin/eslint.js . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "quality": "npm run source:docs && npm run typecheck && npm run test && npm run lint && npm run format:check && npm run build && npm run artifact:check",
+    "artifact:check": "node scripts/check-production-artifacts.ts",
+    "source:docs": "node scripts/check-source-documentation.ts",
+    "dev:api": "npm run dev -w @edutex/api",
+    "dev:auth": "npm run dev -w @edutex/auth-web",
+    "dev:portal": "npm run dev -w @edutex/portal-web",
+    "db:migrate": "npm run migrate -w @edutex/database",
+    "school:bootstrap": "tsx scripts/bootstrap-school.ts",
+    "deploy:compile": "tsc -p scripts/tsconfig.build.json",
+    "deploy:new": "npm run deploy:compile --silent && node scripts/dist/prepare-deployment.js",
+    "deploy:check": "npm run deploy:compile --silent && node scripts/dist/deploy-production.js check",
+    "deploy:plan": "npm run deploy:compile --silent && node scripts/dist/deploy-production.js plan",
+    "deploy:apply": "npm run deploy:compile --silent && node scripts/dist/deploy-production.js apply",
+    "deploy:status": "npm run deploy:compile --silent && node scripts/dist/deploy-production.js status",
+    "legacy:plan": "tsx scripts/migrate-legacy.ts --plan",
+    "legacy:import": "tsx scripts/migrate-legacy.ts --apply",
+    "infra:synth": "npm exec --workspace @edutex/infra-aws -- cdk synth",
+    "setup": "node scripts/setup.ts",
+    "dev": "vite apps/portal-web --config apps/portal-web/vite.config.ts",
+    "deploy:upgrade": "npm run deploy:compile --silent && node scripts/dist/prepare-upgrade.js"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "3.1106.0",
+    "@aws-sdk/client-kms": "3.1106.0",
+    "@electric-sql/pglite": "0.5.8",
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.2.0",
+    "eslint": "10.8.1",
+    "pgsql-ast-parser": "12.0.2",
+    "prettier": "3.9.6",
+    "tsx": "4.23.11",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.66.0"
+  }
+}
