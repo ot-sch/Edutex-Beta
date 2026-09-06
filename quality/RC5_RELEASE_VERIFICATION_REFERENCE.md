@@ -1,0 +1,59 @@
+# Release verification record
+
+Release: `1.0.0-rc.5`  
+Verification date: 2026-08-12  
+Status: source and infrastructure production candidate; target-environment acceptance outstanding
+
+This record distinguishes checks performed on the release source from checks that can only be
+performed in the school’s approved AWS and Cloudflare accounts. It is evidence, not a certification
+or a guarantee that a system cannot be compromised.
+
+## Completed in this release workspace
+
+| Gate                          | Result                   | Evidence summary                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RC5 documentation gate        | Pass                     | `npm run source:docs` inspected 83 maintained implementation files and required a meaningful adjacent comment for all 731 implemented functions/callbacks.                                                                                                                                                                                                                                                          |
+| Strict TypeScript             | Pass                     | Every workspace and controlled deployment script type-checked under the repository’s strict configuration.                                                                                                                                                                                                                                                                                                          |
+| Automated tests               | Pass                     | 67 assertions passed: 29 API/security, 8 AWS boundary/IAM, 26 RC5 deployment/SQL/artifact checks and 4 PostgreSQL configuration/transaction tests. Contracts and both web clients currently have no executable unit tests; their cross-browser/functional acceptance remains a live gate.                                                                                                                           |
+| ESLint                        | Pass                     | Zero warnings under the source-owned ruleset.                                                                                                                                                                                                                                                                                                                                                                       |
+| Prettier                      | Pass                     | All supported source and documentation formats passed the formatting check.                                                                                                                                                                                                                                                                                                                                         |
+| Production build              | Pass                     | Contracts, database, API, scripts, AWS IaC and separate authentication/protected Vite clients built; client source maps remain disabled.                                                                                                                                                                                                                                                                            |
+| Runtime artifact publication  | Pass                     | Clean build removed seven enumerated output directories; post-build gate inspected 46 text artifacts and found no source map/test module, source-map directive, AWS access-key signature, private-key header or embedded Cloudflare token assignment.                                                                                                                                                               |
+| PostgreSQL migration controls | Pass / live gate remains | Nine immutable numbered SQL migrations are catalogued. The migrator checks historical SHA-256 values and applies each new file transactionally. Real Aurora PostgreSQL syntax/role/RLS/rollback and migration-rehearsal evidence remains mandatory before client data.                                                                                                                                              |
+| AWS synthesis and boundary    | Pass                     | Offline CDK synthesis produced 97 resources and 10 outputs. Tests/template inspection show no public load balancer or public task IP, one private ECS service, production desired count zero, exact confidential-client secret create/read namespaces, live Cognito MFA-policy read permission and the immutable cloudflared digest.                                                                                |
+| Cloudflare IaC execution      | Partial / live gate      | Terraform 1.15.8 passed `fmt -check`; offline `init -backend=false` selected Cloudflare provider 5.23.0. Provider-schema validation could not execute because this restricted verifier blocks the provider's required Unix socket (`operation not permitted`). RC5 `deploy:plan` therefore remains the fail-closed target-account validation/plan gate.                                                             |
+| Identity publication gate     | Pass                     | New/reconfigured providers are staged disabled; publication is rejected until the exact provider-scoped claim mapping exists. Row versions are normalised for optimistic-concurrency checks.                                                                                                                                                                                                                        |
+| Runtime dependency audit      | Pass                     | `npm audit --omit=dev --audit-level=high` reported zero known runtime vulnerabilities at verification time.                                                                                                                                                                                                                                                                                                         |
+| Full build dependency audit   | Time-bounded exception   | The current AWS CDK library 2.264.0 still bundles `minimatch` 10.2.5 / `brace-expansion` 5.0.8, producing one high-severity denial-of-service advisory chain with no npm-resolvable fix. These packages are build-only, receive trusted IaC input and are absent from the runtime SBOM/image. Risk R-014 requires vendor monitoring and review by 2026-08-22; a patched CDK release must replace it when available. |
+| Secret/prototype scan         | Pass                     | No AWS access-key pattern, private-key header, inline Cloudflare/AWS credential assignment, Terraform state, production deployment configuration, browser storage use, Supabase runtime URL/dependency or source map was found in shipped maintained source. `.env.example` contains development-only placeholders and production validation rejects those adapters.                                                |
+| RDS trust bundle              | Pass                     | The committed public Amazon RDS global CA bundle parsed and verified with OpenSSL.                                                                                                                                                                                                                                                                                                                                  |
+| Runtime SBOM                  | Pass                     | CycloneDX 1.5 runtime SBOM regenerated at `quality/sbom.cdx.json`: RC5 root, 114 components and 115 dependency entries.                                                                                                                                                                                                                                                                                             |
+| Setup manual PDF              | Pass                     | The 32-page A4 RC5 “Setup Guide for Everyone” was regenerated after the final recovery/authentication changes, rendered page by page and visually inspected. All 45 steps and both exact-ARN retry examples are present; no blank, clipped, overlapping, encrypted or JavaScript-bearing page was found and every font is embedded/subset.                                                                          |
+| Deployment interview          | Pass                     | A terminal-driven test created the non-secret `production.json` with owner-only mode, created an owner-only work directory, and displayed status without cloud mutation. Actual identifiers were not used in this workspace.                                                                                                                                                                                        |
+| Clean archive extraction      | Pass                     | The final 228-entry ZIP passed `unzip -t`; a fresh extraction installed 348 packages with `npm ci`, rebuilt Sharp, passed the complete quality/artifact gate and reported zero known runtime vulnerabilities. Docker itself is unavailable in this verifier, so image build/scan/signature remains a target gate.                                                                                                   |
+
+## Mandatory target-environment gates not executed here
+
+These are release blockers until an authorised owner records a pass or formally accepts the specific
+residual risk:
+
+- clean-machine `npm ci`, full quality gate, Docker/buildx image build, registry scan, signing and
+  provenance verification;
+- `terraform validate` and the approved Terraform plan against the purchased Cloudflare features;
+- AWS deployment, IAM Access Analyzer/SCP/Config/Security Hub review and live Aurora migration
+  rehearsal;
+- Cloudflare Tunnel, WAF/rate-limit logging, direct-origin-unreachability and IP/country policy
+  tests;
+- Microsoft Entra ID, Google Workspace, generic OIDC and SAML federation/claim-assurance tests;
+- live two-tenant negative authorization/RLS, session/device/recovery and revoke-all tests;
+- cross-browser/mobile accessibility, load, isolated restore/RTO/RPO and incident exercises;
+- SAST, DAST, container and IaC scanners plus independent penetration testing;
+- privacy, legal and records validation; ISMS/QMS operation; internal audit; management review; and
+  any accredited ISO/IEC 27001 or ISO 9001 certification assessment.
+
+## Release decision
+
+Do not admit client data until every applicable pre-live item in the RC5 deployment runbook, OWASP
+ASVS matrix and risk register is closed or formally accepted by an authorised human owner. OWASP
+provides verification guidance rather than product certification; ISO certification applies to the
+defined organisational management-system scope, not source code in isolation.

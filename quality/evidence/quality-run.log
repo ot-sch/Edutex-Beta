@@ -1,0 +1,248 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> edutex-production@1.0.0-rc.6 quality
+> npm run source:docs && npm run typecheck && npm run test && npm run lint && npm run format:check && npm run build && npm run artifact:check
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> edutex-production@1.0.0-rc.6 source:docs
+> node scripts/check-source-documentation.ts
+
+Source documentation gate passed: 124 maintained files and 1334 implemented functions documented.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> edutex-production@1.0.0-rc.6 typecheck
+> npm run build -w @edutex/contracts && npm run build -w @edutex/database && npm run typecheck --workspaces --if-present && tsc -p scripts/tsconfig.json --noEmit
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/contracts@1.0.0-rc.6 build
+> tsc -p tsconfig.json
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/database@1.0.0-rc.6 build
+> tsc -p tsconfig.json
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/contracts@1.0.0-rc.6 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @edutex/database@1.0.0-rc.6 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @edutex/api@1.0.0-rc.6 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @edutex/auth-web@1.0.0-rc.6 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @edutex/portal-web@1.0.0-rc.6 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @edutex/technician-web@1.0.0-rc.6 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @edutex/infra-aws@1.0.0-rc.6 typecheck
+> tsc -p tsconfig.json --noEmit
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> edutex-production@1.0.0-rc.6 test
+> npm run test --workspaces --if-present
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/contracts@1.0.0-rc.6 test
+> vitest run --passWithNoTests
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/packages/contracts
+
+No test files found, exiting with code 0
+
+include: **/*.{test,spec}.?(c|m)[jt]s?(x)
+exclude:  **/node_modules/**, **/.git/**
+
+
+> @edutex/database@1.0.0-rc.6 test
+> vitest run
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/packages/database
+
+
+ Test Files  2 passed (2)
+      Tests  4 passed (4)
+   Start at  15:03:53
+   Duration  772ms (transform 265ms, setup 0ms, import 548ms, tests 19ms, environment 0ms)
+
+
+> @edutex/api@1.0.0-rc.6 test
+> vitest run --coverage.enabled=false
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/apps/api
+
+{"level":30,"time":1788617037247,"pid":303,"hostname":"localhost","reqId":"324fae86-7a7a-4ca0-a9f3-cecd46c17983","req":{"method":"GET","url":"/health/live","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037257,"pid":303,"hostname":"localhost","reqId":"324fae86-7a7a-4ca0-a9f3-cecd46c17983","res":{"statusCode":200},"responseTime":8.205735000000004,"msg":"request completed"}
+{"level":30,"time":1788617037311,"pid":303,"hostname":"localhost","reqId":"82db9498-9813-4807-b368-786fa56bac9a","req":{"method":"GET","url":"/auth/","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037321,"pid":303,"hostname":"localhost","reqId":"82db9498-9813-4807-b368-786fa56bac9a","res":{"statusCode":200},"responseTime":8.035163999999895,"msg":"request completed"}
+{"level":30,"time":1788617037321,"pid":303,"hostname":"localhost","reqId":"0e0d1924-af38-41fe-9ab9-46870716cc03","req":{"method":"GET","url":"/auth/edutex-logo.png","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037327,"pid":303,"hostname":"localhost","reqId":"0e0d1924-af38-41fe-9ab9-46870716cc03","res":{"statusCode":200},"responseTime":5.7538369999997485,"msg":"request completed"}
+{"level":30,"time":1788617037328,"pid":303,"hostname":"localhost","reqId":"008dd18b-a2a5-4ce5-9f15-3824d3c35557","req":{"method":"GET","url":"/auth/assets/app-a1b2c3.js","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037332,"pid":303,"hostname":"localhost","reqId":"008dd18b-a2a5-4ce5-9f15-3824d3c35557","res":{"statusCode":200},"responseTime":3.793384999999944,"msg":"request completed"}
+{"level":30,"time":1788617037350,"pid":303,"hostname":"localhost","reqId":"e33d2964-2621-41ef-b12a-40a7304e2dad","req":{"method":"POST","url":"/api/v1/auth/logout","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037352,"pid":303,"hostname":"localhost","reqId":"e33d2964-2621-41ef-b12a-40a7304e2dad","res":{"statusCode":403},"responseTime":1.5628059999999095,"msg":"request completed"}
+{"level":30,"time":1788617037378,"pid":303,"hostname":"localhost","reqId":"b4830ada-66f5-4665-9ac6-a6eee7898ca9","req":{"method":"GET","url":"/api/v1/public/tenant","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037379,"pid":303,"hostname":"localhost","reqId":"b4830ada-66f5-4665-9ac6-a6eee7898ca9","res":{"statusCode":403},"responseTime":0.8143129999998564,"msg":"request completed"}
+{"level":30,"time":1788617037399,"pid":303,"hostname":"localhost","reqId":"12345678-SYD","req":{"method":"GET","url":"/api/v1/public/tenant","host":"attacker.example","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037401,"pid":303,"hostname":"localhost","reqId":"12345678-SYD","res":{"statusCode":403},"responseTime":1.1643789999998262,"msg":"request completed"}
+{"level":30,"time":1788617037413,"pid":303,"hostname":"localhost","reqId":"8623aebe-e94a-472a-81f3-f074b63d7ca3","req":{"method":"GET","url":"/health/live","host":"127.0.0.1:8080","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788617037414,"pid":303,"hostname":"localhost","reqId":"8623aebe-e94a-472a-81f3-f074b63d7ca3","res":{"statusCode":200},"responseTime":0.46230100000002494,"msg":"request completed"}
+
+ Test Files  7 passed (7)
+      Tests  57 passed (57)
+   Start at  15:03:55
+   Duration  13.41s (transform 2.40s, setup 0ms, import 5.97s, tests 12.24s, environment 7ms)
+
+
+> @edutex/auth-web@1.0.0-rc.6 test
+> vitest run --coverage.enabled=false --passWithNoTests
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/apps/auth-web
+
+No test files found, exiting with code 0
+
+include: **/*.{test,spec}.?(c|m)[jt]s?(x)
+exclude:  **/node_modules/**, **/.git/**
+
+
+> @edutex/portal-web@1.0.0-rc.6 test
+> vitest run --coverage.enabled=false --passWithNoTests
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/apps/portal-web
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  15:04:09
+   Duration  516ms (transform 220ms, setup 0ms, import 313ms, tests 33ms, environment 0ms)
+
+
+> @edutex/technician-web@1.0.0-rc.6 test
+> vitest run --coverage.enabled=false --passWithNoTests
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/apps/technician-web
+
+No test files found, exiting with code 0
+
+include: **/*.{test,spec}.?(c|m)[jt]s?(x)
+exclude:  **/node_modules/**, **/.git/**
+
+
+> @edutex/infra-aws@1.0.0-rc.6 test
+> vitest run lib --coverage.enabled=false --passWithNoTests --exclude '**/dist/**'
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/infra/aws
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  15:04:11
+   Duration  2.63s (transform 68ms, setup 0ms, import 355ms, tests 2.09s, environment 0ms)
+
+
+> @edutex/scripts@1.0.0-rc.6 test
+> vitest run --coverage.enabled=false --exclude '**/dist/**'
+
+
+ RUN  v4.1.10 /workspace/scratch/1563e7ec0c38/edutex/Edutex-production/scripts
+
+
+ Test Files  5 passed (5)
+      Tests  26 passed (26)
+   Start at  15:04:14
+   Duration  991ms (transform 464ms, setup 0ms, import 1.06s, tests 383ms, environment 1ms)
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> edutex-production@1.0.0-rc.6 lint
+> node --max-old-space-size=6144 node_modules/eslint/bin/eslint.js . --max-warnings 0
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> edutex-production@1.0.0-rc.6 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> edutex-production@1.0.0-rc.6 build
+> node scripts/clean-build-output.ts && npm run build -w @edutex/contracts && npm run build -w @edutex/database && npm run build -w @edutex/auth-web && npm run build -w @edutex/portal-web && npm run build -w @edutex/technician-web && npm run build -w @edutex/api && tsc -p scripts/tsconfig.build.json && npm run build -w @edutex/infra-aws
+
+Clean build boundary removed 8 generated directories.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/contracts@1.0.0-rc.6 build
+> tsc -p tsconfig.json
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/database@1.0.0-rc.6 build
+> tsc -p tsconfig.json
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/auth-web@1.0.0-rc.6 build
+> vite build
+
+vite v8.2.1 building client environment for production...
+[2Ktransforming...✓ 1876 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  0.59 kB │ gzip:  0.34 kB
+dist/assets/auth-CvfZPYur.css   26.54 kB │ gzip:  5.55 kB
+dist/assets/auth-CgHAQEHI.js   274.07 kB │ gzip: 83.64 kB
+
+✓ built in 687ms
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/portal-web@1.0.0-rc.6 build
+> vite build
+
+vite v8.2.1 building client environment for production...
+[2Ktransforming...✓ 1907 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                    0.87 kB │ gzip:   0.42 kB
+dist/assets/portal--UVkqE4V.css  101.35 kB │ gzip:  14.55 kB
+dist/assets/portal-Q6sNWy9t.js   465.77 kB │ gzip: 127.66 kB
+
+✓ built in 923ms
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @edutex/technician-web@1.0.0-rc.6 build
+> vite build
+
+vite v8.2.1 building client environment for production...
+[2Ktransforming...✓ 105 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                        0.62 kB │ gzip:  0.34 kB
+dist/assets/technician-lPLjrHc0.css   97.08 kB │ gzip: 13.70 kB
+dist/assets/technician-DFjeroIs.js   274.86 kB │ gzip: 83.40 kB
+
+✓ built in 502ms

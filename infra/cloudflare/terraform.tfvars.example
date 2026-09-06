@@ -1,0 +1,10 @@
+account_id            = "replace-with-cloudflare-account-id"
+zone_id               = "replace-with-cloudflare-zone-id"
+hostname              = "portal.school.example"
+tunnel_id             = "00000000-0000-0000-0000-000000000000"
+allowed_country_codes = ["AU", "NZ"]
+allowed_ip_cidrs      = []
+admin_ip_cidrs        = ["203.0.113.10/32"]
+enable_bot_management = false
+
+# Supply the API token only through the provider-native CLOUDFLARE_API_TOKEN environment variable.

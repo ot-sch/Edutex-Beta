@@ -1,0 +1,8 @@
+{
+  "app": "node --enable-source-maps dist/bin/edutex.js",
+  "context": {
+    "@aws-cdk/aws-ecs-patterns:removeDefaultDesiredCount": true,
+    "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
+    "@aws-cdk/aws-s3:serverAccessLogsUseBucketPolicy": true
+  }
+}

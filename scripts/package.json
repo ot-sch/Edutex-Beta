@@ -1,0 +1,19 @@
+{
+  "name": "@edutex/scripts",
+  "version": "1.0.0-rc.6",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run --coverage.enabled=false --exclude '**/dist/**'"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "3.1106.0",
+    "@aws-sdk/client-kms": "3.1106.0",
+    "@aws-sdk/client-s3": "3.1106.0",
+    "@edutex/database": "1.0.0-rc.6",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "vitest": "4.1.10"
+  }
+}
