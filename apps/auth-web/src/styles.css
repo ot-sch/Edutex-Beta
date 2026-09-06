@@ -1,0 +1,194 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-50: #eef7ff;
+  --color-brand-100: #d8ecff;
+  --color-brand-200: #b9ddff;
+  --color-brand-500: #1683f5;
+  --color-brand-600: #0d63e6;
+  --color-brand-700: #0e4db8;
+  --color-brand-900: #11376f;
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    min-height: 100%;
+    background: #f6f9fd;
+  }
+  body {
+    min-width: 320px;
+    min-height: 100dvh;
+    margin: 0;
+    color: #172033;
+    font-family: var(--font-sans);
+  }
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:focus-visible,
+  a:focus-visible {
+    outline: 3px solid #8cc7ff;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .auth-canvas {
+    @apply relative flex min-h-dvh flex-col overflow-hidden bg-[#f6f9fd] px-4 py-5 sm:px-6 sm:py-8;
+  }
+  .auth-layout {
+    @apply relative z-10 m-auto grid w-full max-w-[1060px] overflow-hidden rounded-[2rem] border border-white/80 bg-white shadow-[0_28px_90px_-30px_rgba(24,66,124,0.34)] lg:grid-cols-[1.05fr_0.95fr];
+  }
+  .brand-panel {
+    @apply relative hidden min-h-[660px] flex-col justify-between overflow-hidden bg-gradient-to-br from-[#0c4fc0] via-[#0d67e7] to-[#16a0ed] p-12 text-white lg:flex;
+  }
+  .brand-panel::before {
+    content: '';
+    @apply absolute -right-28 -top-20 h-80 w-80 rounded-full border-[58px] border-white/10;
+  }
+  .brand-panel::after {
+    content: '';
+    @apply absolute -bottom-28 left-14 h-72 w-72 rounded-full bg-white/10 blur-2xl;
+  }
+  .brand-mark {
+    @apply relative z-10 flex h-16 w-fit items-center rounded-2xl bg-white px-5 shadow-lg shadow-blue-950/10;
+  }
+  .brand-copy {
+    @apply relative z-10 max-w-md;
+  }
+  .brand-copy h1 {
+    @apply mt-4 text-[2.7rem] font-semibold leading-[1.08] tracking-[-0.04em];
+  }
+  .brand-copy > p:last-child {
+    @apply mt-6 text-[1.03rem] leading-7 text-blue-50/90;
+  }
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-blue-100;
+  }
+  .trust-list {
+    @apply relative z-10 grid gap-2.5 text-sm text-blue-50/90;
+  }
+  .trust-list span {
+    @apply flex items-center gap-2.5;
+  }
+  .signin-panel {
+    @apply flex min-h-[620px] items-center px-6 py-12 sm:px-12 lg:min-h-[660px] lg:px-14;
+  }
+  .loading-state,
+  .error-state {
+    @apply mx-auto flex max-w-sm flex-col items-center gap-3 text-center;
+  }
+  .error-state h2 {
+    @apply mt-2 text-2xl font-semibold tracking-tight text-slate-950;
+  }
+  .error-state p {
+    @apply text-sm leading-6 text-slate-600;
+  }
+  .error-icon {
+    @apply flex size-14 items-center justify-center rounded-2xl bg-red-50 text-red-600;
+  }
+  .retry-button {
+    @apply mt-3 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700;
+  }
+  .school-heading {
+    @apply mb-8 flex items-center gap-4;
+  }
+  .school-logo {
+    @apply flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 text-brand-600 shadow-sm;
+  }
+  .school-logo img {
+    @apply h-full w-full object-contain p-1.5;
+  }
+  .school-heading h2 {
+    @apply mt-0.5 text-2xl font-semibold tracking-[-0.025em] text-slate-950 sm:text-[1.7rem];
+  }
+  .maintenance-note {
+    @apply mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-5 text-amber-900;
+  }
+  .method-stack {
+    @apply grid gap-3;
+  }
+  .signin-button {
+    @apply flex min-h-16 w-full items-center gap-3 rounded-2xl border px-4 py-3.5 text-sm transition duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .signin-button-primary {
+    @apply border-brand-600 bg-brand-600 text-white shadow-[0_12px_24px_-12px_rgba(13,99,230,0.85)] hover:border-brand-700 hover:bg-brand-700;
+  }
+  .signin-button-secondary {
+    @apply border-slate-200 bg-white text-slate-900 shadow-sm hover:border-brand-200 hover:bg-brand-50/60;
+  }
+  .button-icon {
+    @apply flex size-9 shrink-0 items-center justify-center rounded-xl bg-current/10;
+  }
+  .divider {
+    @apply my-6 flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-slate-400;
+  }
+  .divider::before,
+  .divider::after {
+    content: '';
+    @apply h-px flex-1 bg-slate-200;
+  }
+  .security-note {
+    @apply mt-7 flex items-start gap-2 text-xs leading-5 text-slate-500;
+  }
+  .security-note svg {
+    @apply mt-0.5 shrink-0 text-emerald-600;
+  }
+  .support-link {
+    @apply mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-900 hover:underline;
+  }
+  .ambient {
+    @apply pointer-events-none absolute rounded-full blur-3xl;
+  }
+  .ambient-one {
+    @apply -right-28 -top-32 h-96 w-96 bg-blue-200/45;
+  }
+  .ambient-two {
+    @apply -bottom-36 -left-28 h-96 w-96 bg-cyan-100/55;
+  }
+  footer {
+    @apply relative z-10 mx-auto mt-5 text-center text-xs text-slate-400;
+  }
+}
+
+@media (max-width: 1023px) {
+  .auth-layout {
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 520px) {
+  .auth-canvas {
+    padding: 0;
+  }
+  .auth-layout {
+    min-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .signin-panel {
+    min-height: 100dvh;
+    align-items: flex-start;
+    padding: max(2rem, env(safe-area-inset-top)) 1.25rem max(2rem, env(safe-area-inset-bottom));
+  }
+  footer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
